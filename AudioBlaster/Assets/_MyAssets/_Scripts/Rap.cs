@@ -2,13 +2,6 @@
 using System.Collections;
 
 public class Rap : Weapon {
-
-    /// <summary>
-    /// Max range to find another target.
-    /// </summary>
-    [SerializeField]
-    private float range = 5.0f;
-
     /// <summary>
     /// Max time before the projectile will cease seeking additional targets.
     /// </summary>
@@ -33,6 +26,8 @@ public class Rap : Weapon {
 
     private Transform nextTarget = null;
 
+    private Vector3 lastFramePos;
+
 	// Use this for initialization
 	void Start () {
         OnStart();
@@ -42,14 +37,23 @@ public class Rap : Weapon {
 	void Update () {
         if (canSeek)
         {
-            SeekTarget();
+            if(hitCount == 0)
+                SeekTarget();
+            else
+                MoveToTarget();
             if (nextTarget != null)
             {
                 NewTarget(nextTarget.position);
             }
         }
-        if (hitCount > maxHits)
+        if (hitCount >= maxHits)
             DestroyProjectile();
+        
+        // Check to see if projectile has stopped moving then destroy it.
+        if (lastFramePos == this.transform.position)
+            DestroyProjectile();
+        lastFramePos = this.transform.position;
+
 	}
 
     void OnTriggerEnter2D(Collider2D other)

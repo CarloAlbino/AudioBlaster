@@ -11,5 +11,6 @@ public class Guitar : Weapon {
 	// Update is called once per frame
 	void Update () {
         SeekTarget();
+        //MoveToTarget();
 	}
 }

@@ -10,6 +10,17 @@ public class Weapon : MonoBehaviour {
     protected float speed = 1.0f;
 
     /// <summary>
+    /// Stores the current velocity of the projectile.
+    /// </summary>
+    protected Vector3 velocity;
+
+    /// <summary>
+    /// Time to reach target.
+    /// </summary>
+    [SerializeField]
+    protected float timeToTarget = 1.0f;
+
+    /// <summary>
     /// Damage done by the weapon.
     /// </summary>
     [SerializeField]
@@ -57,6 +68,29 @@ public class Weapon : MonoBehaviour {
     {
         float moveSpeed = speed * Time.deltaTime;
         this.transform.position = Vector3.MoveTowards(transform.position, target * 10, moveSpeed);
+    }
+
+    /// <summary>
+    /// Get the projectile's velocity.
+    /// </summary>
+    private void GetVelocity()
+    {
+        velocity = target - transform.position;
+    }
+
+    /// <summary>
+    /// Move Projectile towards target.
+    /// </summary>
+    protected void MoveToTarget()
+    { 
+        GetVelocity();
+        velocity /= timeToTarget;
+        if (velocity.magnitude > speed)
+        {
+            velocity.Normalize();
+            velocity *= speed;
+        }
+        this.transform.Translate(velocity /* speed*/ * Time.deltaTime);
     }
 
     /// <summary>
