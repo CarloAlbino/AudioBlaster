@@ -24,7 +24,7 @@ public class Weapon : MonoBehaviour {
     /// Damage done by the weapon.
     /// </summary>
     [SerializeField]
-    protected float damage = 10.0f;
+    protected float damage { get; set; }
 
     /// <summary>
     /// Time before self-destruct.
@@ -43,6 +43,13 @@ public class Weapon : MonoBehaviour {
     protected Vector3 target;
 
     /// <summary>
+    /// Level of the upgrade.
+    /// </summary>
+    protected int upgradeLevel { get; set; }
+
+    private int maxUpgradeLevel = 2;
+
+    /// <summary>
     /// Setup to do when weapon is spawned. To be called in Start.
     /// </summary>
     protected void OnStart()
@@ -50,6 +57,8 @@ public class Weapon : MonoBehaviour {
         _player = FindObjectOfType<Player>();
         NewTarget(_player.GetMouseClickPosition());
         StartCoroutine(DestroyCount());
+        damage = 10;
+        upgradeLevel = 0;
     }
 
     /// <summary>
@@ -104,19 +113,21 @@ public class Weapon : MonoBehaviour {
     }
 
     /// <summary>
-    /// Returns the amount of damage done by the weapon.
-    /// </summary>
-    /// <returns>The damage.</returns>
-    public float GetDamage()
-    {
-        return damage;
-    }
-
-    /// <summary>
     /// Destroys the object.
     /// </summary>
     public void DestroyProjectile()
     {
         Destroy(this.gameObject);
+    }
+
+    /// <summary>
+    /// Upgrade weapon by one level.
+    /// </summary>
+    public void UpgradeWeapon()
+    {
+        if (upgradeLevel < maxUpgradeLevel)
+        {
+            upgradeLevel++;
+        }
     }
 }
