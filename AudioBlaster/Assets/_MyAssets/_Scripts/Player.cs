@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Instantiate(weaponProjectiles[currentlySelectedWeapon], this.gameObject.transform.position, Quaternion.identity);
+            Instantiate(weaponProjectiles[selectedWeapons[currentlySelectedWeapon]], this.gameObject.transform.position, Quaternion.identity);
             SetMouseClickPosition();
         }
     }

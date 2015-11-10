@@ -47,6 +47,9 @@ public class Weapon : MonoBehaviour {
     /// </summary>
     protected int upgradeLevel { get; set; }
 
+    /// <summary>
+    /// Highest upgrade level.
+    /// </summary>
     private int maxUpgradeLevel = 2;
 
     /// <summary>
@@ -59,6 +62,11 @@ public class Weapon : MonoBehaviour {
         StartCoroutine(DestroyCount());
         damage = 10;
         upgradeLevel = 0;
+    }
+
+    protected void UpdateMousePositionTarget()
+    {
+        NewTarget(_player.GetMouseClickPosition());
     }
 
     /// <summary>
@@ -103,6 +111,25 @@ public class Weapon : MonoBehaviour {
     }
 
     /// <summary>
+    /// Rotates the projectile towards mouse potition.
+    /// </summary>
+    protected void RotateTowardsTarget(GameObject self)
+    {
+        GetVelocity();
+        velocity.Normalize();
+       // Vector3 newDir = Vector3.RotateTowards(self.transform.up, velocity, 1, 0f);
+        //float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        self.transform.rotation = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
+    }
+
+    protected void DestroyCount(float seconds)
+    {
+        selftDestructTime = seconds;
+        DestroyCount();
+    }
+
+    /// <summary>
     /// Delay before destroying the object.
     /// </summary>
     /// <returns>Yield</returns>
@@ -130,4 +157,6 @@ public class Weapon : MonoBehaviour {
             upgradeLevel++;
         }
     }
+
+
 }

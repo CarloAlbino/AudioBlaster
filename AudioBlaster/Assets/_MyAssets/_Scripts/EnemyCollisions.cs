@@ -27,5 +27,10 @@ public class EnemyCollisions : MonoBehaviour {
             _controller.numOfEnemies--;
             Destroy(this.gameObject);
         }
+        if (other.GetComponent<Violin>())
+        {
+            _controller.numOfEnemies--;
+            Destroy(this.gameObject);
+        }
     }
 }
