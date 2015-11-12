@@ -30,7 +30,7 @@ public class Rap : Weapon {
 
 	// Use this for initialization
 	void Start () {
-        OnStart();
+        OnStart(7f);
 	}
 	
 	// Update is called once per frame

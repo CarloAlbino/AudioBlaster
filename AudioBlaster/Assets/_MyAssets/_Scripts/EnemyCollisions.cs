@@ -29,8 +29,21 @@ public class EnemyCollisions : MonoBehaviour {
         }
         if (other.GetComponent<Violin>())
         {
+            other.GetComponent<Violin>().DestroyProjectile();
             _controller.numOfEnemies--;
             Destroy(this.gameObject);
         }
+        if (other.GetComponent<Voice>())
+        {
+            other.GetComponent<Voice>().DestroyProjectile();
+            _controller.numOfEnemies--;
+            Destroy(this.gameObject);
+        }
+        if (other.GetComponent<Tambourine>())
+        {
+            _controller.numOfEnemies--;
+            Destroy(this.gameObject);
+        }
+
     }
 }

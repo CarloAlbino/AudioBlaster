@@ -18,7 +18,7 @@ public class Guitar : Weapon {
 
 	// Use this for initialization
 	void Start () {
-        OnStart();
+        OnStart(5f);
 	}
 	
 	// Update is called once per frame

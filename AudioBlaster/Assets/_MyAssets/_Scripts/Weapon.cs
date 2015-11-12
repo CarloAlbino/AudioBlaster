@@ -4,6 +4,11 @@ using System.Collections;
 public class Weapon : MonoBehaviour {
 
     /// <summary>
+    /// Weapon name.
+    /// </summary>
+    public string name;
+
+    /// <summary>
     /// Speed of the projectile.
     /// </summary>
     [SerializeField]
@@ -59,7 +64,19 @@ public class Weapon : MonoBehaviour {
     {
         _player = FindObjectOfType<Player>();
         NewTarget(_player.GetMouseClickPosition());
-        StartCoroutine(DestroyCount());
+        damage = 10;
+        upgradeLevel = 0;
+    }
+
+    /// <summary>
+    /// Setup to do when weapon is spawned. To be called in Start, option to destroy projectile.
+    /// </summary>
+    /// <param name="destroyTime">Time to projectile destruction</param>
+    protected void OnStart(float destroyTime)
+    {
+        _player = FindObjectOfType<Player>();
+        NewTarget(_player.GetMouseClickPosition());
+        DestroyCount(destroyTime);
         damage = 10;
         upgradeLevel = 0;
     }
@@ -85,6 +102,31 @@ public class Weapon : MonoBehaviour {
     {
         float moveSpeed = speed * Time.deltaTime;
         this.transform.position = Vector3.MoveTowards(transform.position, target * 10, moveSpeed);
+    }
+
+    /// <summary>
+    /// Creates a sine wave pattern for the prjectile.
+    /// </summary>
+    /// <param name="frequency">Frequency of the sine wave.</param>
+    /// <param name="magnitude">Magnitude of the sine wave.</param>
+    protected void ZigZag(float frequency, float magnitude)
+    {
+        Vector3 temp = transform.position;
+        transform.position = temp + new Vector3(transform.localPosition.x, transform.localPosition.y, 0) * Mathf.Sin(Time.time * frequency) * magnitude;
+    }
+
+    /// <summary>
+    /// Expand the projectile.
+    /// </summary>
+    /// <param name="maxSize"></param>
+    protected void Expand(float maxSize, float expandRate)
+    {
+        Vector3 temp = transform.localScale;
+        if (temp.x < maxSize)
+        {
+            temp *= expandRate;
+            transform.localScale += temp;
+        }
     }
 
     /// <summary>
@@ -126,7 +168,7 @@ public class Weapon : MonoBehaviour {
     protected void DestroyCount(float seconds)
     {
         selftDestructTime = seconds;
-        DestroyCount();
+        StartCoroutine(DestroyCount());
     }
 
     /// <summary>

@@ -4,6 +4,6 @@ using System.Collections;
 public class Drum : Weapon {
     void Start()
     {
-        OnStart();
+        OnStart(0.75f);
     }
 }
