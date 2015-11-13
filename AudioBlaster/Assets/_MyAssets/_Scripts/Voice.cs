@@ -17,6 +17,6 @@ public class Voice : Weapon {
 	// Update is called once per frame
 	void Update () {
         SeekTarget();
-        Expand(maxProjectileSize, expandRate);
+        Expand(maxProjectileSize, 0, expandRate);
 	}
 }

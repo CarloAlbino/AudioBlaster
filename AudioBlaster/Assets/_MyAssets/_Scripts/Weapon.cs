@@ -115,17 +115,38 @@ public class Weapon : MonoBehaviour {
         transform.position = temp + new Vector3(transform.localPosition.x, transform.localPosition.y, 0) * Mathf.Sin(Time.time * frequency) * magnitude;
     }
 
+    bool flip = false;
     /// <summary>
     /// Expand the projectile.
     /// </summary>
     /// <param name="maxSize"></param>
-    protected void Expand(float maxSize, float expandRate)
+    protected void Expand(float maxSize,float minSize, float expandRate)
     {
         Vector3 temp = transform.localScale;
-        if (temp.x < maxSize)
+        
+        if (!flip)
         {
-            temp *= expandRate;
-            transform.localScale += temp;
+            if (temp.x < maxSize)
+            {
+                temp *= expandRate;
+                transform.localScale += temp;
+            }
+            else
+            {
+                flip = true;
+            }
+        }
+        else
+        {
+            if (temp.x > minSize)
+            {
+                temp *= expandRate;
+                transform.localScale += temp;
+            }
+            else
+            {
+                flip = false;
+            }
         }
     }
 
