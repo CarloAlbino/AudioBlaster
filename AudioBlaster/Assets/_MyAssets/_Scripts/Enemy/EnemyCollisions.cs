@@ -44,6 +44,23 @@ public class EnemyCollisions : MonoBehaviour {
             _controller.numOfEnemies--;
             Destroy(this.gameObject);
         }
+        if (other.GetComponent<Bass>())
+        {
+            _controller.numOfEnemies--;
+            Destroy(this.gameObject);
+        }
+        if (other.GetComponent<Triangle>())
+        {
+            other.GetComponent<Triangle>().DestroyProjectile();
+            _controller.numOfEnemies--;
+            Destroy(this.gameObject);
+        }
+        if (other.GetComponent<BoomBox>())
+        {
+            other.GetComponent<BoomBox>().TakeHit();
+            _controller.numOfEnemies--;
+            Destroy(this.gameObject);
+        }
 
     }
 }

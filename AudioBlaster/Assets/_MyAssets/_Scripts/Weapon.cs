@@ -66,6 +66,7 @@ public class Weapon : MonoBehaviour {
         NewTarget(_player.GetMouseClickPosition());
         damage = 10;
         upgradeLevel = 0;
+        //write something that will get the upgrade level from the controller
     }
 
     /// <summary>
@@ -171,6 +172,14 @@ public class Weapon : MonoBehaviour {
             velocity *= speed;
         }
         this.transform.Translate(velocity /* speed*/ * Time.deltaTime);
+    }
+
+    /// <summary>
+    /// Moves the projectile forward.
+    /// </summary>
+    protected void MoveForward()
+    {
+        this.transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
     /// <summary>
