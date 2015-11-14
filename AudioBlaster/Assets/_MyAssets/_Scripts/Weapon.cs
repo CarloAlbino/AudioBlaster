@@ -6,7 +6,7 @@ public class Weapon : MonoBehaviour {
     /// <summary>
     /// Weapon name.
     /// </summary>
-    public string name;
+    public string weaponName;
 
     /// <summary>
     /// Speed of the projectile.
