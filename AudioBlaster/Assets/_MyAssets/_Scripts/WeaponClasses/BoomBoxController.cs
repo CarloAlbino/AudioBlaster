@@ -26,7 +26,7 @@ public class BoomBoxController : Weapon {
         {
             Debug.Log(dancePoints[i].name);
             SpawnBro(dancePoints[i].transform.position);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
             i++;
         }
     }
@@ -35,5 +35,6 @@ public class BoomBoxController : Weapon {
     {
         GameObject projectile = Instantiate(boomBoxProjectile, spawnPoint.transform.position, Quaternion.identity) as GameObject;
         projectile.GetComponent<BoomBox>().NewTarget(target);
+        projectile.transform.parent = this.gameObject.transform;
     }
 }

@@ -8,7 +8,7 @@ public class BoomBox : BoomBoxController {
 
 	// Use this for initialization
 	void Start () {
-        OnStart(selftDestructTime);
+        //OnStart(selftDestructTime);
 	}
 	
 	// Update is called once per frame
