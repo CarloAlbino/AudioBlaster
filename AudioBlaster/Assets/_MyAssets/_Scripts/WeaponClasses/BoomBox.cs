@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BoomBox : BoomBoxController {
+public class BoomBox : Weapon {
 
     [SerializeField]
     private int numOfHits = 3;
@@ -23,5 +23,11 @@ public class BoomBox : BoomBoxController {
         {
             DestroyProjectile();
         }
+    }
+
+    public void Upgrade(int level)
+    {
+        upgradeLevel = level;
+        numOfHits += upgradeLevel;
     }
 }

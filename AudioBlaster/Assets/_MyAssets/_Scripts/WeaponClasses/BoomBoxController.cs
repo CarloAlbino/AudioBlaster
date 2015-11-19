@@ -35,6 +35,16 @@ public class BoomBoxController : Weapon {
     {
         GameObject projectile = Instantiate(boomBoxProjectile, spawnPoint.transform.position, Quaternion.identity) as GameObject;
         projectile.GetComponent<BoomBox>().NewTarget(target);
+        projectile.GetComponent<BoomBox>().Upgrade(upgradeLevel);
         projectile.transform.parent = this.gameObject.transform;
+    }
+
+    public void UpgradeBoomBox()
+    {
+        UpgradeWeapon();
+        // set sprite to new projectile
+        //this.GetComponent<SpriteRenderer>().sprite = projectile[upgradeLevel];
+        // set damage done to new damage done
+        damage *= (float)(upgradeLevel + 1);
     }
 }

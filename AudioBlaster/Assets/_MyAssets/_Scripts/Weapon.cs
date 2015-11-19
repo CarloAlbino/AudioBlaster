@@ -50,12 +50,18 @@ public class Weapon : MonoBehaviour {
     /// <summary>
     /// Level of the upgrade.
     /// </summary>
-    protected int upgradeLevel { get; set; }
+    public int upgradeLevel { get; set; }
 
     /// <summary>
     /// Highest upgrade level.
     /// </summary>
     private int maxUpgradeLevel = 2;
+
+    /// <summary>
+    /// Holds sprite for projectile at each upgrade level.
+    /// </summary>
+    [SerializeField]
+    protected Sprite[] projectile;
 
     /// <summary>
     /// Setup to do when weapon is spawned. To be called in Start.
@@ -91,7 +97,7 @@ public class Weapon : MonoBehaviour {
     /// Set a new target for the weapon.
     /// </summary>
     /// <param name="t">Vector3, the position of the new target.</param>
-    protected void NewTarget(Vector3 t)
+    public void NewTarget(Vector3 t)
     {
         target = t;
     }

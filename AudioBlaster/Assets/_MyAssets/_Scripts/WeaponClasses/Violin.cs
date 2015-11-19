@@ -15,15 +15,32 @@ public class Violin : Weapon {
 	
 	// Update is called once per frame
 	void Update () {
-        /*UpdateMousePositionTarget();
-        RotateTowardsTarget(this.gameObject);
-        if(Input.GetMouseButtonUp(0)){
-            //DestroyCount(1.0f);
-           DestroyProjectile();
-        }*/
-        SeekTarget();
-        //MoveToTarget();
-        RotateTowardsTarget(this.gameObject);
-        ZigZag(frequency, magnitude);
+        if (upgradeLevel < 1)
+        {
+            SeekTarget();
+            RotateTowardsTarget(this.gameObject);
+            ZigZag(frequency, magnitude);
+        }
+        else if (upgradeLevel < 2)
+        {
+            SeekTarget();
+            RotateTowardsTarget(this.gameObject);
+            ZigZag(frequency * 1.15f, magnitude * 1.15f);
+        }
+        else
+        {
+            SeekTarget();
+            RotateTowardsTarget(this.gameObject);
+            ZigZag(frequency * 1.25f, magnitude * 1.25f);
+        }
 	}
+
+    public void UpdgradeViolin()
+    {
+        UpgradeWeapon();
+        // set sprite to new projectile
+        //this.GetComponent<SpriteRenderer>().sprite = projectile[upgradeLevel];
+        // set damage done to new damage done
+        damage *= (float)(upgradeLevel + 1);
+    }
 }

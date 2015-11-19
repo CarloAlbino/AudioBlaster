@@ -42,12 +42,14 @@ public class TriangleController : Weapon {
         for (; i < spawnPoints.Length; i += 2)
         {
             GameObject triangleProjectile = Instantiate(projectile, spawnPoints[i].transform.position, Quaternion.identity) as GameObject;
+            triangleProjectile.GetComponent<Triangle>().Upgrade(upgradeLevel);
             triangleProjectile.transform.localRotation = spawnPoints[i].transform.localRotation;
         }
     }
 
-    private void UpgradeTriangle()
+    public void UpgradeTriangle()
     {
+        UpgradeWeapon();
         if (upgradeLevel == 1)
         {
             loopsNum = 5;
@@ -56,5 +58,9 @@ public class TriangleController : Weapon {
         {
             loopsNum = 7;
         }
+        // set sprite to new projectile
+        //this.GetComponent<SpriteRenderer>().sprite = projectile[upgradeLevel];
+        // set damage done to new damage done
+        damage *= (float)(upgradeLevel + 1);
     }
 }

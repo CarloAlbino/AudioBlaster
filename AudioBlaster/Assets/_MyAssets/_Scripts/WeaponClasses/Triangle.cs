@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Triangle : TriangleController {
+public class Triangle : Weapon {
 
     [SerializeField]
     private float maxProjectileSize;
@@ -38,4 +38,9 @@ public class Triangle : TriangleController {
             ZigZag(frequency, magnitude);
         }
 	}
+
+    public void Upgrade(int level)
+    {
+        upgradeLevel = level;
+    }
 }
