@@ -11,7 +11,9 @@ public class Voice : Weapon {
 
 	// Use this for initialization
 	void Start () {
-        OnStart(selftDestructTime);
+        OnStart();
+        DestroyCount(selfDestructTime);
+        UpgradeVoice();
 	}
 	
 	// Update is called once per frame
@@ -33,9 +35,9 @@ public class Voice : Weapon {
         }
 	}
 
-    public void UpdgradeVoice()
+    public void UpgradeVoice()
     {
-        UpgradeWeapon();
+        UpgradeWeapon(_player.GetCurrentWeaponLevel());
         // set sprite to new projectile
         //this.GetComponent<SpriteRenderer>().sprite = projectile[upgradeLevel];
         // set damage done to new damage done

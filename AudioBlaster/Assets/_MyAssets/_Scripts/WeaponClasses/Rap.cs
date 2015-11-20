@@ -30,7 +30,9 @@ public class Rap : Weapon {
 
 	// Use this for initialization
 	void Start () {
-        OnStart(7f);
+        OnStart();
+        DestroyCount(selfDestructTime); // 7f
+        UpgradeRap();
 	}
 	
 	// Update is called once per frame
@@ -41,6 +43,7 @@ public class Rap : Weapon {
                 SeekTarget();
             else
                 MoveToTarget();
+
             if (nextTarget != null)
             {
                 NewTarget(nextTarget.position);
@@ -118,6 +121,28 @@ public class Rap : Weapon {
             }
         }
         return tMin;
+    }
+
+    public void UpgradeRap()
+    {
+        UpgradeWeapon(_player.GetCurrentWeaponLevel());
+        // set sprite to new projectile
+        //this.GetComponent<SpriteRenderer>().sprite = projectile[upgradeLevel];
+        // set damage done to new damage done
+        damage *= (float)(upgradeLevel + 1);
+
+        if (upgradeLevel < 1)
+        {
+
+        }
+        else if (upgradeLevel < 2)
+        {
+            maxHits = 4;
+        }
+        else
+        {
+            maxHits = 6;
+        }
     }
 
 }

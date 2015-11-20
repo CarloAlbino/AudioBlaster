@@ -8,7 +8,7 @@ public class BoomBox : Weapon {
 
 	// Use this for initialization
 	void Start () {
-        //OnStart(selftDestructTime);
+        OnStart(selfDestructTime);
 	}
 	
 	// Update is called once per frame

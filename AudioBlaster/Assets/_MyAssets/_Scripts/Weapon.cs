@@ -29,13 +29,13 @@ public class Weapon : MonoBehaviour {
     /// Damage done by the weapon.
     /// </summary>
     [SerializeField]
-    protected float damage { get; set; }
+    protected float damage;
 
     /// <summary>
     /// Time before self-destruct.
     /// </summary>
     [SerializeField]
-    protected float selftDestructTime = 10.0f;
+    protected float selfDestructTime = 10.0f;
 
     /// <summary>
     /// Reference to the player.
@@ -50,12 +50,17 @@ public class Weapon : MonoBehaviour {
     /// <summary>
     /// Level of the upgrade.
     /// </summary>
-    public int upgradeLevel { get; set; }
+    public int upgradeLevel;
 
     /// <summary>
     /// Highest upgrade level.
     /// </summary>
     private int maxUpgradeLevel = 2;
+
+    /// <summary>
+    /// Upgrade points need to upgrade to the next level. Index 0 = points to go from level 1 to 2. Index 1 = points to go from index 2 to 3.
+    /// </summary>
+    protected int[] upgradePointsNeeded = new int[2];
 
     /// <summary>
     /// Holds sprite for projectile at each upgrade level.
@@ -72,7 +77,6 @@ public class Weapon : MonoBehaviour {
         NewTarget(_player.GetMouseClickPosition());
         damage = 10;
         upgradeLevel = 0;
-        //write something that will get the upgrade level from the controller
     }
 
     /// <summary>
@@ -124,9 +128,11 @@ public class Weapon : MonoBehaviour {
 
     bool flip = false;
     /// <summary>
-    /// Expand the projectile.
+    /// Expand and contract the projectile.
     /// </summary>
-    /// <param name="maxSize"></param>
+    /// <param name="maxSize">Maximum size of the projectile.</param>
+    /// <param name="minSize">Minimum size of the projectile.</param>
+    /// <param name="expandRate">Rate at which the projectile will expand.</param>
     protected void Expand(float maxSize,float minSize, float expandRate)
     {
         Vector3 temp = transform.localScale;
@@ -201,9 +207,13 @@ public class Weapon : MonoBehaviour {
         self.transform.rotation = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
     }
 
+    /// <summary>
+    /// Destroy the object after a certain amount of time.
+    /// </summary>
+    /// <param name="seconds">Time until destruction.</param>
     protected void DestroyCount(float seconds)
     {
-        selftDestructTime = seconds;
+        selfDestructTime = seconds;
         StartCoroutine(DestroyCount());
     }
 
@@ -213,7 +223,7 @@ public class Weapon : MonoBehaviour {
     /// <returns>Yield</returns>
     private IEnumerator DestroyCount()
     {
-        yield return new WaitForSeconds(selftDestructTime);
+        yield return new WaitForSeconds(selfDestructTime);
         DestroyProjectile();
     }
 
@@ -226,15 +236,37 @@ public class Weapon : MonoBehaviour {
     }
 
     /// <summary>
-    /// Upgrade weapon by one level.
+    /// Upgrade weapon level to level passed in.
     /// </summary>
-    public void UpgradeWeapon()
+    /// <param name="level">The new level. 0, 1, or 2.</param>
+    public void UpgradeWeapon(int level)
     {
-        if (upgradeLevel < maxUpgradeLevel)
+        upgradeLevel = level;
+        if (upgradeLevel > maxUpgradeLevel)
         {
-            upgradeLevel++;
+            upgradeLevel = maxUpgradeLevel;
+        }
+        if (upgradeLevel < 0)
+        {
+            upgradeLevel = 0;
         }
     }
 
+    /// <summary>
+    /// Damage done by the projectile.
+    /// </summary>
+    /// <returns>The damage.</returns>
+    public float GetDamage()
+    {
+        return damage;
+    }
+
+    public int GetPointsNeeded()
+    {
+        if(upgradeLevel < 2)
+            return upgradePointsNeeded[upgradeLevel];
+        else
+            return -1; // In controller if < 0 then you can no longer upgrade.
+    }
 
 }

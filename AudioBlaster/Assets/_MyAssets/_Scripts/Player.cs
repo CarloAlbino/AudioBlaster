@@ -16,7 +16,12 @@ public class Player : MonoBehaviour
     /// The 3 selected weapons for the current try of the game.
     /// </summary>
     [SerializeField]
-    private int[] selectedWeapons;
+    private int[] selectedWeapons = new int[3];
+
+    /// <summary>
+    /// The upgrade level for each of the selected weapons.
+    /// </summary>
+    private int[] selectedWeaponLevel = new int[3];
 
     /// <summary>
     /// The weapon that will fire when the fire button is pressed.
@@ -33,7 +38,11 @@ public class Player : MonoBehaviour
 
     #region Monobehaviour
 
-    // Update is called once per frame
+    void Start()
+    {
+        SetUpgradeLevels();
+    }
+
 	void Update () {
         SwitchWeapon();
         FireWeapon();
@@ -74,6 +83,14 @@ public class Player : MonoBehaviour
                 currentlySelectedWeapon++;
             else
                 currentlySelectedWeapon = 0;
+        }
+    }
+
+    private void SetUpgradeLevels()
+    {
+        for (int i = 0; i < selectedWeaponLevel.Length; i++)
+        {
+            selectedWeaponLevel[i] = 0;
         }
     }
 
@@ -122,6 +139,30 @@ public class Player : MonoBehaviour
     public Vector3 GetMouseClickPosition()
     {
         return mouseClickPosition;
+    }
+
+    /// <summary>
+    /// Upgrade a weapon.
+    /// </summary>
+    /// <param name="weaponNum">The number of the weapon to upgrade.</param>
+    /// <param name="newLevel">The upgrade level the weapon will be at.</param>
+    public void SetUpgradeWeapon(int weaponNum, int newLevel)
+    {
+        selectedWeaponLevel[weaponNum] = newLevel;
+    }
+
+    /// <summary>
+    /// Get the upgrade level of the currently selected weapon.
+    /// </summary>
+    /// <returns>The upgrade level.</returns>
+    public int GetCurrentWeaponLevel()
+    {
+        return selectedWeaponLevel[currentlySelectedWeapon];
+    }
+
+    public string GetWeaponName(int weaponNum)
+    {
+        return weaponProjectiles[selectedWeapons[weaponNum]].GetComponent<Weapon>().weaponName;
     }
 
     #endregion Public Methods

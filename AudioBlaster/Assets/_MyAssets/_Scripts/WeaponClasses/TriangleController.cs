@@ -4,7 +4,7 @@ using System.Collections;
 public class TriangleController : Weapon {
 
     [SerializeField]
-    private GameObject projectile;
+    private GameObject projectile1;
 
     [SerializeField]
     private GameObject[] spawnPoints = new GameObject[6];
@@ -41,7 +41,7 @@ public class TriangleController : Weapon {
     {
         for (; i < spawnPoints.Length; i += 2)
         {
-            GameObject triangleProjectile = Instantiate(projectile, spawnPoints[i].transform.position, Quaternion.identity) as GameObject;
+            GameObject triangleProjectile = Instantiate(projectile1, spawnPoints[i].transform.position, Quaternion.identity) as GameObject;
             triangleProjectile.GetComponent<Triangle>().Upgrade(upgradeLevel);
             triangleProjectile.transform.localRotation = spawnPoints[i].transform.localRotation;
         }
@@ -49,7 +49,7 @@ public class TriangleController : Weapon {
 
     public void UpgradeTriangle()
     {
-        UpgradeWeapon();
+        UpgradeWeapon(_player.GetCurrentWeaponLevel());
         if (upgradeLevel == 1)
         {
             loopsNum = 5;

@@ -10,7 +10,9 @@ public class Violin : Weapon {
 
 	// Use this for initialization
 	void Start () {
-        OnStart(selftDestructTime);
+        OnStart();
+        DestroyCount(selfDestructTime);
+        UpgradeViolin();
 	}
 	
 	// Update is called once per frame
@@ -35,9 +37,9 @@ public class Violin : Weapon {
         }
 	}
 
-    public void UpdgradeViolin()
+    public void UpgradeViolin()
     {
-        UpgradeWeapon();
+        UpgradeWeapon(_player.GetCurrentWeaponLevel());
         // set sprite to new projectile
         //this.GetComponent<SpriteRenderer>().sprite = projectile[upgradeLevel];
         // set damage done to new damage done

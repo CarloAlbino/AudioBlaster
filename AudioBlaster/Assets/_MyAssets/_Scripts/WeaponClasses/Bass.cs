@@ -22,11 +22,43 @@ public class Bass : Weapon {
 
 	// Use this for initialization
 	void Start () {
-        OnStart(selftDestructTime);
+        OnStart();
+        DestroyCount(selfDestructTime);
+        UpgradeBass();
         StartCoroutine(BassWave());
 	}
 
     void Update()
+    {
+        if (upgradeLevel < 1)
+        {
+            ExpandCheck();
+        }
+        else if (upgradeLevel < 2)
+        {
+            maxProjectileSize *= 1.2f;
+            negExpandRate *= 1.2f;
+            expandRate *= 1.2f;
+            ExpandCheck();
+        }
+        else
+        {
+            maxProjectileSize *= 1.5f;
+            negExpandRate *= 1.5f;
+            expandRate *= 1.5f;
+            ExpandCheck();
+        }
+    }
+
+    private IEnumerator BassWave(){
+        Expanded = false;
+        yield return new WaitForSeconds(interval);
+        Expanded = true;
+        yield return new WaitForSeconds(interval);
+        StartCoroutine(BassWave());
+    }
+
+    private void ExpandCheck()
     {
         if (Expanded)
         {
@@ -38,11 +70,12 @@ public class Bass : Weapon {
         }
     }
 
-    private IEnumerator BassWave(){
-        Expanded = false;
-        yield return new WaitForSeconds(interval);
-        Expanded = true;
-        yield return new WaitForSeconds(interval);
-        StartCoroutine(BassWave());
+    public void UpgradeBass()
+    {
+        UpgradeWeapon(_player.GetCurrentWeaponLevel());
+        // set sprite to new projectile
+        //this.GetComponent<SpriteRenderer>().sprite = projectile[upgradeLevel];
+        // set damage done to new damage done
+        damage *= (float)(upgradeLevel + 1);
     }
 }

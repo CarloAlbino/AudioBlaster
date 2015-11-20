@@ -14,7 +14,9 @@ public class BoomBoxController : Weapon {
 
 	// Use this for initialization
 	void Start () {
-        OnStart(selftDestructTime);
+        OnStart();
+        DestroyCount(selfDestructTime);
+        UpgradeBoomBox();
         StartCoroutine(SpawnPosse());
 	}
 
@@ -41,7 +43,7 @@ public class BoomBoxController : Weapon {
 
     public void UpgradeBoomBox()
     {
-        UpgradeWeapon();
+        UpgradeWeapon(_player.GetCurrentWeaponLevel());
         // set sprite to new projectile
         //this.GetComponent<SpriteRenderer>().sprite = projectile[upgradeLevel];
         // set damage done to new damage done

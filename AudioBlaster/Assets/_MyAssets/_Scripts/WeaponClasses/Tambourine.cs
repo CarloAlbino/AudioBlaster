@@ -9,12 +9,38 @@ public class Tambourine : Weapon {
     private float magnitude = 0.5f;
 
 	void Start () {
-        OnStart(selftDestructTime);
+        OnStart();
+        DestroyCount(selfDestructTime);
+        UpgradeTambourine();
 	}
 
     void Update()
     {
         RotateTowardsTarget(this.gameObject);
         ZigZag(frequency, magnitude);
+    }
+
+    public void UpgradeTambourine()
+    {
+       // UpgradeWeapon(); // this will need to change to be more precise
+        // set sprite to new projectile
+        //this.GetComponent<SpriteRenderer>().sprite = projectile[upgradeLevel];
+        // set damage done to new damage done
+        damage *= (float)(upgradeLevel + 1);
+
+        if (upgradeLevel < 1)
+        {
+
+        }
+        else if (upgradeLevel < 2)
+        {
+            selfDestructTime *= 1.5f;
+            this.transform.localScale *= 1.3f;
+        }
+        else
+        {
+            selfDestructTime *= 2f;
+            this.transform.localScale *= 1.5f;
+        }
     }
 }

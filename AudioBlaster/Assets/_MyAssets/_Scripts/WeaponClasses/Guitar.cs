@@ -5,7 +5,9 @@ public class Guitar : Weapon {
 
 	// Use this for initialization
 	void Start () {
-        OnStart(5f);
+        OnStart();
+        DestroyCount(selfDestructTime); // 5f
+        UpgradeGuitar();
 	}
 	
 	// Update is called once per frame
@@ -14,9 +16,9 @@ public class Guitar : Weapon {
         //MoveToTarget();
 	}
 
-    public void UpdgradeGuitar()
+    public void UpgradeGuitar()
     {
-        UpgradeWeapon();
+        UpgradeWeapon(_player.GetCurrentWeaponLevel());
         // set sprite to new projectile
         //this.GetComponent<SpriteRenderer>().sprite = projectile[upgradeLevel];
         // set damage done to new damage done
