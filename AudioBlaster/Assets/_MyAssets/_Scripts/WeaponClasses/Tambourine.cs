@@ -36,11 +36,13 @@ public class Tambourine : Weapon {
         {
             selfDestructTime *= 1.5f;
             this.transform.localScale *= 1.3f;
+            coolDown *= 1.5f;
         }
         else
         {
             selfDestructTime *= 2f;
             this.transform.localScale *= 1.5f;
+            coolDown *= 2f;
         }
     }
 }

@@ -48,5 +48,17 @@ public class BoomBoxController : Weapon {
         //this.GetComponent<SpriteRenderer>().sprite = projectile[upgradeLevel];
         // set damage done to new damage done
         damage *= (float)(upgradeLevel + 1);
+        if (upgradeLevel < 1)
+        {
+
+        }
+        else if (upgradeLevel < 2)
+        {
+            coolDown *= 1.2f;
+        }
+        else
+        {
+            coolDown *= 1.4f;
+        }
     }
 }

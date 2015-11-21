@@ -24,6 +24,16 @@ public class Player : MonoBehaviour
     private int[] selectedWeaponLevel = new int[3];
 
     /// <summary>
+    /// Cooldown for each of the selected weapons.
+    /// </summary>
+    private float[] weaponCoolDown = new float[3];
+
+    /// <summary>
+    /// Can each of the weapons be fired?
+    /// </summary>
+    private bool[] canFire = new bool[3];
+
+    /// <summary>
     /// The weapon that will fire when the fire button is pressed.
     /// </summary>
     [SerializeField]
@@ -41,6 +51,11 @@ public class Player : MonoBehaviour
     void Start()
     {
         SetUpgradeLevels();
+        for (int i = 0; i < canFire.Length; i++)
+        {
+            canFire[i] = true;
+            weaponCoolDown[i] = weaponProjectiles[selectedWeapons[i]].GetComponent<Weapon>().GetCooldownTime();
+        }
     }
 
 	void Update () {
@@ -59,8 +74,12 @@ public class Player : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Instantiate(weaponProjectiles[selectedWeapons[currentlySelectedWeapon]], this.gameObject.transform.position, Quaternion.identity);
-            SetMouseClickPosition();
+            if (canFire[currentlySelectedWeapon])
+            {
+                Instantiate(weaponProjectiles[selectedWeapons[currentlySelectedWeapon]], this.gameObject.transform.position, Quaternion.identity);
+                SetMouseClickPosition();
+                StartCoroutine(StartCooldown());
+            }
         }
     }
 
@@ -92,6 +111,13 @@ public class Player : MonoBehaviour
         {
             selectedWeaponLevel[i] = 0;
         }
+    }
+
+    private IEnumerator StartCooldown()
+    {
+        canFire[currentlySelectedWeapon] = false;
+        yield return new WaitForSeconds(weaponCoolDown[currentlySelectedWeapon]);
+        canFire[currentlySelectedWeapon] = true;
     }
 
     #endregion Private Methods

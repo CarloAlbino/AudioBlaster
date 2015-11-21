@@ -69,6 +69,12 @@ public class Weapon : MonoBehaviour {
     protected Sprite[] projectile;
 
     /// <summary>
+    /// Cooldown for if the projectile can be fired.
+    /// </summary>
+    [SerializeField]
+    protected float coolDown;
+
+    /// <summary>
     /// Setup to do when weapon is spawned. To be called in Start.
     /// </summary>
     protected void OnStart()
@@ -269,4 +275,12 @@ public class Weapon : MonoBehaviour {
             return -1; // In controller if < 0 then you can no longer upgrade.
     }
 
+    /// <summary>
+    /// Get the cooldown time for the projectile.
+    /// </summary>
+    /// <returns>Cool down time(float).</returns>
+    public float GetCooldownTime()
+    {
+        return coolDown;
+    }
 }

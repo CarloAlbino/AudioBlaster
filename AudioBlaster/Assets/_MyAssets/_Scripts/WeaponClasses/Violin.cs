@@ -28,12 +28,14 @@ public class Violin : Weapon {
             SeekTarget();
             RotateTowardsTarget(this.gameObject);
             ZigZag(frequency * 1.15f, magnitude * 1.15f);
+            selfDestructTime *= 1.2f;
         }
         else
         {
             SeekTarget();
             RotateTowardsTarget(this.gameObject);
             ZigZag(frequency * 1.25f, magnitude * 1.25f);
+            selfDestructTime *= 1.5f;
         }
 	}
 

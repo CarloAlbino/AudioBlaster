@@ -138,10 +138,12 @@ public class Rap : Weapon {
         else if (upgradeLevel < 2)
         {
             maxHits = 4;
+            coolDown *= 1.2f;
         }
         else
         {
             maxHits = 6;
+            coolDown *= 1.4f;
         }
     }
 

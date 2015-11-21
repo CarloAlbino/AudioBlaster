@@ -24,10 +24,12 @@ public class Drum : Weapon {
         else if (upgradeLevel < 2)
         {
             selfDestructTime *= 1.5f;
+            coolDown *= 1.5f;
         }
         else
         {
             selfDestructTime *= 2f;
+            coolDown *= 2f;
         }
     }
 }

@@ -40,6 +40,7 @@ public class Bass : Weapon {
             negExpandRate *= 1.2f;
             expandRate *= 1.2f;
             ExpandCheck();
+            coolDown *= 1.2f;
         }
         else
         {
@@ -47,6 +48,7 @@ public class Bass : Weapon {
             negExpandRate *= 1.5f;
             expandRate *= 1.5f;
             ExpandCheck();
+            coolDown *= 1.5f;
         }
     }
 
