@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Player : MonoBehaviour
@@ -29,6 +30,14 @@ public class Player : MonoBehaviour
     private float[] weaponCoolDown = new float[3];
 
     /// <summary>
+    /// Current cooldown time for each of the used weapons.
+    /// </summary>
+    private float[] currentCoolDown = new float[3];
+
+    [SerializeField]
+    private Image[] coolDownClocks = new Image[3];
+
+    /// <summary>
     /// Can each of the weapons be fired?
     /// </summary>
     private bool[] canFire = new bool[3];
@@ -55,6 +64,7 @@ public class Player : MonoBehaviour
         {
             canFire[i] = true;
             weaponCoolDown[i] = weaponProjectiles[selectedWeapons[i]].GetComponent<Weapon>().GetCooldownTime();
+            currentCoolDown[i] = 0;
         }
     }
 
@@ -115,9 +125,19 @@ public class Player : MonoBehaviour
 
     private IEnumerator StartCooldown()
     {
-        canFire[currentlySelectedWeapon] = false;
-        yield return new WaitForSeconds(weaponCoolDown[currentlySelectedWeapon]);
-        canFire[currentlySelectedWeapon] = true;
+        int i = currentlySelectedWeapon;
+        canFire[i] = false;
+        currentCoolDown[i] = weaponCoolDown[i];
+        coolDownClocks[i].fillAmount = weaponCoolDown[i];
+        while (currentCoolDown[i] > 0)
+        {
+            yield return new WaitForSeconds(0.01f);
+            currentCoolDown[i] -= weaponCoolDown[i]*0.01f;
+            float percentage = currentCoolDown[i]/weaponCoolDown[i];
+            coolDownClocks[i].fillAmount = percentage;
+        }
+        canFire[i] = true;
+        coolDownClocks[i].fillAmount = 0;
     }
 
     #endregion Private Methods
