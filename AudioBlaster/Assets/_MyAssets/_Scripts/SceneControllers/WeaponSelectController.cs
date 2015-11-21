@@ -1,21 +1,80 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class WeaponSelectController : MonoBehaviour {
 
-    public int w1 = 0;
-    public int w2 = 1;
-    public int w3 = 2;
+    // Buttons
+    [SerializeField]
+    private Button[] longRange;
+    [SerializeField]
+    private Button[] closeRange;
+    [SerializeField]
+    private Button[] special;
 
-	// Use this for initialization
+    // Button Text
+    [SerializeField]
+    private Text[] longRangeText;
+    [SerializeField]
+    private Text[] closeRangeText;
+    [SerializeField]
+    private Text[] specialText;
+
+    // Selected Weapons
+    private int w1 = -1;
+    private int w2 = -1;
+    private int w3 = -1;
+
+    // Play Button
+    [SerializeField]
+    private Button playButton;
+    [SerializeField]
+    private Text playButtonText;
+
 	void Start () {
-	
+        DontDestroyOnLoad(this.gameObject);
+        ResetButtons(longRange, longRangeText);
+        ResetButtons(closeRange, closeRangeText);
+        ResetButtons(special, specialText);
+        // Set play buttons to not clickable until weapons are picked.
+        playButton.interactable = false;
+        playButtonText.text = "Choose Weapons";
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    #region Public Functions
+
+    public void ChoseLRWeapon(int buttonNum)
+    {
+        SetButtons(longRange, longRangeText, buttonNum);
+        w1 = buttonNum;
+        if (WeaponsSelected())
+        {
+            playButton.interactable = true;
+            playButtonText.text = "PLAY >>";
+        }
+    }
+
+    public void ChoseCRWeapon(int buttonNum)
+    {
+        SetButtons(closeRange, closeRangeText, buttonNum);
+        w2 = buttonNum + 3;
+        if (WeaponsSelected())
+        {
+            playButton.interactable = true;
+            playButtonText.text = "PLAY >>";
+        }
+    }
+
+    public void ChoseSWeapon(int buttonNum)
+    {
+        SetButtons(special, specialText, buttonNum);
+        w3 = buttonNum + 6;
+        if (WeaponsSelected())
+        {
+            playButton.interactable = true;
+            playButtonText.text = "PLAY >>";
+        }
+    }
 
     public int GetWeapon1()
     {
@@ -34,4 +93,50 @@ public class WeaponSelectController : MonoBehaviour {
     {
         Destroy(this.gameObject);
     }
+
+    public void GoToNextLevel()
+    {
+        Application.LoadLevel(2);
+    }
+
+    #endregion Public Functions
+
+    #region Private Funtions
+
+    private bool WeaponsSelected()
+    {
+        if(w1 > -1 && w2 > -1 && w3 > -1)
+            return true;
+        else
+            return false;
+    }
+
+    private void SetButtons(Button[] _bArray, Text[] _tArray, int i)
+    {
+        for (int j = 0; j < _tArray.Length; j++)
+        {
+            if (j == i)
+            {
+                _tArray[j].text = "Selected";
+                _bArray[j].image.color = Color.red;
+            }
+            else
+            {
+                _tArray[j].text = "";
+                _bArray[j].image.color = Color.white;
+            }
+        }
+    }
+    
+    private void ResetButtons(Button[] _bArray, Text[] _tArray)
+    {
+        for (int i = 0; i < _tArray.Length; i++)
+        {
+            _tArray[i].text = "";
+            _bArray[i].image.color = Color.white;
+        }
+    }
+
+    #endregion Private Funtions
+
 }

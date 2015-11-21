@@ -16,6 +16,7 @@ public class TriangleController : Weapon {
     private int loopsNum = 3;
 
 	void Start () {
+        _player = FindObjectOfType<Player>();
         StartCoroutine(ShootTriangle());
         UpgradeTriangle();
 	}
