@@ -60,6 +60,7 @@ public class Weapon : MonoBehaviour {
     /// <summary>
     /// Upgrade points need to upgrade to the next level. Index 0 = points to go from level 1 to 2. Index 1 = points to go from index 2 to 3.
     /// </summary>
+    [SerializeField]
     protected int[] upgradePointsNeeded = new int[2];
 
     /// <summary>
@@ -282,5 +283,14 @@ public class Weapon : MonoBehaviour {
     public float GetCooldownTime()
     {
         return coolDown;
+    }
+
+    /// <summary>
+    /// For Debug
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 GetCurrentTarget()
+    {
+        return target;
     }
 }

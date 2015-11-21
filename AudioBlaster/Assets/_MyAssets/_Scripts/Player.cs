@@ -53,12 +53,15 @@ public class Player : MonoBehaviour
     /// </summary>
     private Vector3 mouseClickPosition;
 
+    private GameController _gc;
+
     #endregion Variables
 
     #region Monobehaviour
 
     void Start()
     {
+        _gc = FindObjectOfType<GameController>();
         SetUpgradeLevels();
         for (int i = 0; i < canFire.Length; i++)
         {
@@ -71,6 +74,18 @@ public class Player : MonoBehaviour
 	void Update () {
         SwitchWeapon();
         FireWeapon();
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            UpgradeWeapon(0);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            UpgradeWeapon(1);
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            UpgradeWeapon(2);
+        }
 	}
 
     #endregion Monobehaviour
@@ -132,7 +147,7 @@ public class Player : MonoBehaviour
         while (currentCoolDown[i] > 0)
         {
             yield return new WaitForSeconds(0.01f);
-            currentCoolDown[i] -= weaponCoolDown[i]*0.01f;
+            currentCoolDown[i] -= 0.01f;
             float percentage = currentCoolDown[i]/weaponCoolDown[i];
             coolDownClocks[i].fillAmount = percentage;
         }
@@ -209,6 +224,16 @@ public class Player : MonoBehaviour
     public string GetWeaponName(int weaponNum)
     {
         return weaponProjectiles[selectedWeapons[weaponNum]].GetComponent<Weapon>().weaponName;
+    }
+
+    public void UpgradeWeapon(int weaponNum)
+    {
+        int points = weaponProjectiles[selectedWeapons[weaponNum]].GetComponent<Weapon>().GetPointsNeeded();
+        if (points > 0 && points <= _gc.GetUpgradePoints())
+        {
+            selectedWeaponLevel[weaponNum]++;
+            _gc.UseUpgradePoints(points);
+        }
     }
 
     #endregion Public Methods

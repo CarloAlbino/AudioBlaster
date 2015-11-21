@@ -30,26 +30,7 @@ public class Bass : Weapon {
 
     void Update()
     {
-        if (upgradeLevel < 1)
-        {
-            ExpandCheck();
-        }
-        else if (upgradeLevel < 2)
-        {
-            maxProjectileSize *= 1.2f;
-            negExpandRate *= 1.2f;
-            expandRate *= 1.2f;
-            ExpandCheck();
-            coolDown *= 1.2f;
-        }
-        else
-        {
-            maxProjectileSize *= 1.5f;
-            negExpandRate *= 1.5f;
-            expandRate *= 1.5f;
-            ExpandCheck();
-            coolDown *= 1.5f;
-        }
+        ExpandCheck();
     }
 
     private IEnumerator BassWave(){
@@ -79,5 +60,23 @@ public class Bass : Weapon {
         //this.GetComponent<SpriteRenderer>().sprite = projectile[upgradeLevel];
         // set damage done to new damage done
         damage *= (float)(upgradeLevel + 1);
+        if (upgradeLevel < 1)
+        {
+            
+        }
+        else if (upgradeLevel < 2)
+        {
+            maxProjectileSize *= 1.2f;
+            negExpandRate *= 1.2f;
+            expandRate *= 1.2f;
+            coolDown *= 1.2f;
+        }
+        else
+        {
+            maxProjectileSize *= 1.5f;
+            negExpandRate *= 1.5f;
+            expandRate *= 1.5f;
+            coolDown *= 1.5f;
+        }
     }
 }

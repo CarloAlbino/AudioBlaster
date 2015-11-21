@@ -12,6 +12,16 @@ public class GameController : MonoBehaviour {
 
     public Text[] weaponButtonText;
 
+    private int upgradePoints = 0;
+
+    public int killsForPoint = 10;
+
+    private int currentKillPoints = 0;
+
+    public Text upgradePointsText;
+
+    public Text kills;
+
     private WeaponSelectController _wc;
 
     private Player _player;
@@ -23,11 +33,13 @@ public class GameController : MonoBehaviour {
         SetSelectedWeapons(_wc.GetWeapon1(), _wc.GetWeapon2(), _wc.GetWeapon3());
         _wc.DestroyWSController();
         _wc = null;
+        kills.text = "EXP:" + currentKillPoints;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         ColourButtons();
+        upgradePointsText.text = "Upgrade Points:" + upgradePoints;
 	}
 
     private void ColourButtons()
@@ -48,6 +60,27 @@ public class GameController : MonoBehaviour {
     public int MaxEnemies()
     {
         return maxEnemies;
+    }
+
+    public void CountKill(int n)
+    {
+        currentKillPoints += n;
+        while (currentKillPoints >= killsForPoint)
+        {
+            currentKillPoints = currentKillPoints - killsForPoint;
+            upgradePoints++;
+        }
+        kills.text = "EXP:" + currentKillPoints;
+    }
+
+    public int GetUpgradePoints()
+    {
+        return upgradePoints;
+    }
+
+    public void UseUpgradePoints(int n)
+    {
+        upgradePoints -= n;
     }
 
     public void SetSelectedWeapons(int w1, int w2, int w3)

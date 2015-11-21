@@ -19,20 +19,7 @@ public class Voice : Weapon {
 	// Update is called once per frame
 	void Update () {
         SeekTarget();
-        if (upgradeLevel < 1)
-        {
-            Expand(maxProjectileSize, 0, expandRate);
-        }
-        else if (upgradeLevel < 2)
-        {
-            Expand(maxProjectileSize * 1.2f, 0, expandRate * 1.2f);
-            speed *= 1.2f;
-        }
-        else
-        {
-            Expand(maxProjectileSize * 1.5f, 0, expandRate * 1.5f);
-            speed *= 1.5f;
-        }
+        Expand(maxProjectileSize, 0, expandRate);
 	}
 
     public void UpgradeVoice()
@@ -42,5 +29,21 @@ public class Voice : Weapon {
         //this.GetComponent<SpriteRenderer>().sprite = projectile[upgradeLevel];
         // set damage done to new damage done
         damage *= (float)(upgradeLevel + 1);
+        if (upgradeLevel < 1)
+        {
+            
+        }
+        else if (upgradeLevel < 2)
+        {
+            maxProjectileSize *= 1.2f;
+            expandRate *= 1.2f;
+            speed *= 1.2f;
+        }
+        else
+        {
+            maxProjectileSize *= 1.5f;
+            expandRate *= 1.5f;
+            speed *= 1.5f;
+        }
     }
 }

@@ -23,10 +23,10 @@ public class Triangle : Weapon {
 	// Update is called once per frame
 	void Update () {
         MoveForward();
-        if (upgradeLevel == 0){
+        if (upgradeLevel < 1){
             // First level
         }
-        else if (upgradeLevel == 1)
+        else if (upgradeLevel < 2)
         {
             // Second level
             Expand(maxProjectileSize, 0, expandRate);
@@ -34,7 +34,7 @@ public class Triangle : Weapon {
         else
         {
             // Third level
-            Expand(maxProjectileSize, 0, expandRate * 2);
+            Expand(maxProjectileSize, 0, expandRate);
             ZigZag(frequency, magnitude);
         }
 	}
@@ -42,5 +42,7 @@ public class Triangle : Weapon {
     public void Upgrade(int level)
     {
         upgradeLevel = level;
+        if(upgradeLevel > 1)
+            expandRate *= 2;
     }
 }

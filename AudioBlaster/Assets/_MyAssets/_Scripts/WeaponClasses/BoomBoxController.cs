@@ -14,7 +14,9 @@ public class BoomBoxController : Weapon {
 
 	// Use this for initialization
 	void Start () {
-        OnStart();
+        _player = FindObjectOfType<Player>();
+        damage = 10;
+        upgradeLevel = 0;
         DestroyCount(selfDestructTime);
         UpgradeBoomBox();
         StartCoroutine(SpawnPosse());
@@ -26,9 +28,8 @@ public class BoomBoxController : Weapon {
 
         while (i < dancePoints.Length)
         {
-            Debug.Log(dancePoints[i].name);
             SpawnBro(dancePoints[i].transform.position);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.25f);
             i++;
         }
     }

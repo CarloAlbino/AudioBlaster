@@ -54,12 +54,12 @@ public class TriangleController : Weapon {
         if (upgradeLevel == 1)
         {
             loopsNum = 5;
-            coolDown *= 1.5f;
+            coolDown *= 1.7f;
         }
         else if (upgradeLevel == 2)
         {
             loopsNum = 7;
-            coolDown *= 1.7f;
+            coolDown *= 2.3f;
         }
         // set sprite to new projectile
         //this.GetComponent<SpriteRenderer>().sprite = projectile[upgradeLevel];

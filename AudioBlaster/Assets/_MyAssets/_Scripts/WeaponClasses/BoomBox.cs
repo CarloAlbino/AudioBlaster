@@ -8,7 +8,9 @@ public class BoomBox : Weapon {
 
 	// Use this for initialization
 	void Start () {
-        OnStart(selfDestructTime);
+        _player = FindObjectOfType<Player>();
+        damage = 10;
+        upgradeLevel = 0;
 	}
 	
 	// Update is called once per frame
