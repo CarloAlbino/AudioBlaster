@@ -20,5 +20,10 @@ public class EnemyProjectile : Weapon {
             //Call damage on other
             DestroyProjectile();
         }
+
+        if (other.CompareTag("Projectile"))
+        {
+            DestroyProjectile();
+        }
     }
 }

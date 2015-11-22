@@ -5,24 +5,27 @@ public class Enemy : MonoBehaviour
 {
     #region Weapon Variables
     [SerializeField]
-    private GameObject projectile;
+    protected GameObject projectile;
 
-    private bool canFire = false;
+    protected bool canFire = false;
+
+    [SerializeField]
+    protected int percentageOfFire = 35;
     #endregion Weapon Variables
 
     #region Movement Variables
     [SerializeField]
-    private float maxSpeed = 10.0f;
+    protected float maxSpeed = 10.0f;
 
     [SerializeField]
-    private float timeToTarget = 0.5f;
+    protected float timeToTarget = 0.5f;
 
     [SerializeField]
-    private float radiusOfTarget = 2.0f;
+    protected float radiusOfTarget = 2.0f;
 
-    private Vector3 _player;
+    protected Vector3 _player;
 
-    private Vector3 velocity;
+    protected Vector3 velocity;
     #endregion Movement Variables
 
     #region Monobehaviour
@@ -39,17 +42,17 @@ public class Enemy : MonoBehaviour
     #endregion Monobehaviour
 
     #region AI
-    private void GetPlayerPosition()    // Not effecient for this particular enemy, should be called every frame when the player is moving.
+    protected void GetPlayerPosition()    // Not effecient for this particular enemy, should be called every frame when the player is moving.
     {
         _player = FindObjectOfType<Player>().transform.position;
     }
 
-    private void GetVelocity()
+    protected void GetVelocity()
     {
         velocity = _player - transform.position;
     }
 
-    private void MoveToTarget()
+    protected void MoveToTarget()
     {
         GetVelocity();
         if (velocity.magnitude < radiusOfTarget)
@@ -72,17 +75,21 @@ public class Enemy : MonoBehaviour
     #endregion AI
 
     #region Weapons
-    private void FireWeapon()
+    protected void FireWeapon()
     {
         Instantiate(projectile, this.gameObject.transform.position, Quaternion.identity);
     }
 
-    private IEnumerator RandomShooting()
+    protected IEnumerator RandomShooting()
     {
         float randomTime = Random.Range(0.5f, 2.5f);
         yield return new WaitForSeconds(randomTime);
-        if(canFire)
-            FireWeapon();
+        if (canFire)
+        {
+            int n = Random.Range(0, 100);
+            if(n < percentageOfFire)
+                FireWeapon();
+        }
         StartCoroutine(RandomShooting());
     }
     #endregion Weapons
