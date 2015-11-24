@@ -8,7 +8,7 @@ public class EnemyRangeDetector : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         parent = GetComponentInParent<EnemyUpgrade>();
-        Debug.Log(parent.gameObject.name);
+        //Debug.Log(parent.gameObject.name);
 	}
 
     void OnTriggerEnter2D(Collider2D other)

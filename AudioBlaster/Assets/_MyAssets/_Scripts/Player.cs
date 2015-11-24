@@ -8,6 +8,24 @@ public class Player : MonoBehaviour
     #region Variables
 
     /// <summary>
+    /// Player's Health.
+    /// </summary>
+    [SerializeField]
+    private float playerHealth;
+
+    /// <summary>
+    /// Max player health.
+    /// </summary>
+    [SerializeField]
+    private float maxHealth;
+
+    /// <summary>
+    /// Reference to the health bar.
+    /// </summary>
+    [SerializeField]
+    private Image healthBar;
+
+    /// <summary>
     /// Array for holding all the types of weapon projectiles.
     /// </summary>
     [SerializeField]
@@ -69,6 +87,7 @@ public class Player : MonoBehaviour
             weaponCoolDown[i] = weaponProjectiles[selectedWeapons[i]].GetComponent<Weapon>().GetCooldownTime();
             currentCoolDown[i] = 0;
         }
+        playerHealth = maxHealth;
     }
 
 	void Update () {
@@ -234,6 +253,16 @@ public class Player : MonoBehaviour
             selectedWeaponLevel[weaponNum]++;
             _gc.UseUpgradePoints(points);
         }
+    }
+
+    public void SetHealth(float healthInc)
+    {
+        playerHealth += healthInc;
+        if (playerHealth < 0)
+            playerHealth = 0;
+        if (playerHealth > maxHealth)
+            playerHealth = maxHealth;
+        healthBar.fillAmount += healthInc / maxHealth;
     }
 
     #endregion Public Methods

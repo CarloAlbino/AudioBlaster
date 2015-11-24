@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class EnemyProjectile : Weapon {
+
 	// Use this for initialization
 	void Start () {
         _player = FindObjectOfType<Player>();
@@ -18,6 +19,7 @@ public class EnemyProjectile : Weapon {
         if (other.CompareTag("Player"))
         {
             //Call damage on other
+            other.gameObject.GetComponent<Player>().SetHealth(damage);
             DestroyProjectile();
         }
 

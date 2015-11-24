@@ -22,20 +22,23 @@ public class EnemyUpgrade : Enemy {
         if (!hasDodged)
         {
             Vector3 projDir = GetProjectileDir(projectile);
-            Vector3 temp = transform.position;
+            Vector3 temp = transform.position.normalized;
             if (projDir.x < 0)   //Projectile coming from right
             {
                 // Move Left
-                float p = temp.x * 0.05f;
-                temp.x += p;
+                temp.x *= -1;
+                //float p = temp.x * 0.05f;
+               // temp.x += p;
             }
             else  // Projectile coming from left
             {
                 // Move Right
-                float p = temp.x * 0.05f;
-                temp.x += p;
+                temp.y *= -1;
+               // float p = temp.x * 0.05f;
+               // temp.x += p;
             }
-            transform.position = temp;
+            temp *= 0.5f;
+            transform.position += temp;
             if (!hasCalledDodged)
             {
                 StartCoroutine(DodgeTimer());
