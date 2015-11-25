@@ -15,7 +15,7 @@ public class EnemyRangeDetector : MonoBehaviour {
     {
         if (other.CompareTag("Projectile"))
         {
-            Debug.Log("Projectile enter");
+            //Debug.Log("Projectile enter");
             parent.AvoidProjectile(other.gameObject);
         }
     }
