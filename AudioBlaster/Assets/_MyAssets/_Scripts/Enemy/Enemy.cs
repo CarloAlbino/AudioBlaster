@@ -72,6 +72,12 @@ public class Enemy : MonoBehaviour
         }
 
     }
+
+    public void NewTarget(Vector3 t)
+    {
+        _player = t;
+        Debug.Log("target" + _player);
+    }
     #endregion AI
 
     #region Weapons

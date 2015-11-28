@@ -102,6 +102,8 @@ public class EnemyBoss : MonoBehaviour {
         {
             GameObject m = Instantiate(minion, minionSpawnPoint.position, minionSpawnPoint.rotation) as GameObject;
             //Set the target for the new minion
+            //m.GetComponent<EnemyBossMinion>().SetTarget(target.position);
+            m.GetComponent<Enemy>().NewTarget(target.position);
             minionCount++;
         }
     }
