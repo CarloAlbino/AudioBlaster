@@ -7,6 +7,11 @@ public class EnemyBossMinion : MonoBehaviour
     Vector3 target;
     public float maxSpeed;
     public float timeToTarget;
+
+    void Start()
+    {
+        StartCoroutine(DestroySelf());
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -34,5 +39,11 @@ public class EnemyBossMinion : MonoBehaviour
             dir *= maxSpeed;
         }
         this.transform.Translate(dir * maxSpeed * Time.deltaTime);
+    }
+
+    IEnumerator DestroySelf()
+    {
+        yield return new WaitForSeconds(1);
+        Destroy(this.gameObject);
     }
 }

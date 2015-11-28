@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class EnemyBoss : MonoBehaviour {
 
@@ -10,12 +11,23 @@ public class EnemyBoss : MonoBehaviour {
     private float maxHealth;
 
     [SerializeField]
+    private BossHealthBar bossHealthObject;
+
+    [SerializeField]
+    private Image bossHealth;
+
+    [SerializeField]
     private GameObject barrier;
 
     [SerializeField]
     private Transform[] barrierPoints;
 
     private GameObject[] barrierArray;
+
+    private int[] barrierCount;
+
+    [SerializeField]
+    private int maxBarriers = 3;
 
     [SerializeField]
     private Transform projectileSpawnPoint;
@@ -44,7 +56,11 @@ public class EnemyBoss : MonoBehaviour {
 	void Start () {
         _player = FindObjectOfType<Player>();
         barrierArray =  new GameObject[barrierPoints.Length];
-        StartCoroutine(CoolDown(Random.Range(6.5f, 8.5f)));
+        barrierCount = new int[barrierPoints.Length];
+        StartCoroutine(CoolDown(Random.Range(1.5f, 6.5f)));
+        bossHealthObject = FindObjectOfType<BossHealthBar>();
+        bossHealthObject.ShowHealthBar();
+        bossHealth = bossHealthObject.GetHealthBar();
 	}
 	
 	// Update is called once per frame
@@ -61,25 +77,29 @@ public class EnemyBoss : MonoBehaviour {
 
             if (health < (maxHealth/2))
             {
-                if (randomDecision < 55)
+                if (randomDecision < 45)
                 {
                     DeployBarrier();
                 }
                 else
                 {
-                    StartCoroutine(FireBarrage());
+                    StartCoroutine(FireBarrage(1.5f, 6.5f));
+                }
+            }
+            else if(health > (maxHealth/2))
+            {
+                if (randomDecision < 30)
+                {
+                    DeployBarrier();
+                }
+                else
+                {
+                    StartCoroutine(FireBarrage(1.5f, 6.5f));
                 }
             }
             else
             {
-                if (randomDecision < 35)
-                {
-                    DeployBarrier();
-                }
-                else
-                {
-                    StartCoroutine(FireBarrage());
-                }
+                StartCoroutine(FireBarrage(1.5f, 3.0f));
             }
         }
     }
@@ -115,42 +135,61 @@ public class EnemyBoss : MonoBehaviour {
             minionCount = 0;
     }
 
-    IEnumerator FireBarrage()
+    IEnumerator FireBarrage(float min, float max)
     {
+        StartCoroutine(CoolDown(Random.Range(min, max)));
         Instantiate(barrage, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
         yield return new WaitForSeconds(0.5f);
         Instantiate(barrage, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
         yield return new WaitForSeconds(0.5f);
         Instantiate(barrage, projectileSpawnPoint.position, projectileSpawnPoint.rotation);
-        StartCoroutine(CoolDown(Random.Range(6.5f,8.5f)));
     }
 
     void DeployBarrier()
     {
         int randomNum;
 
-        do
+        randomNum = Random.Range(0, barrierPoints.Length);
+        if (barrierCount[randomNum] > 0)
         {
-            randomNum = Random.Range(0, barrierPoints.Length);
+            for (int i = 0; i < barrierCount.Length; i++)
+            {
+                if (barrierCount[i] == 0)
+                {
+                    randomNum = i;
+                    break;
+                }
+            }
         }
-        while (barrierArray[randomNum] != null);
 
         if (barrierArray[randomNum] == null)
         {
             barrierArray[randomNum] = Instantiate(barrier, barrierPoints[randomNum].position, barrierPoints[randomNum].rotation) as GameObject;
-            StartCoroutine(CoolDown(Random.Range(6.5f, 8.5f)));
+            barrierArray[randomNum].transform.parent = this.gameObject.transform;
+            barrierCount[randomNum] = 1;
+            StartCoroutine(CoolDown(Random.Range(1.5f, 6.5f)));
         }
     }
 
-    void SetHealth(float inc)
+    public void MinusBarrier(int n)
+    {
+        barrierCount[n] = 0;
+    }
+
+    public void SetHealth(float inc)
     {
         health += inc;
 
         if (health <= 0)
+        {
             health = 0;
+            Destroy(this.gameObject);
+        }
 
         if (health > maxHealth)
             health = maxHealth;
+
+        bossHealth.fillAmount = health / maxHealth;
     }
 
 }

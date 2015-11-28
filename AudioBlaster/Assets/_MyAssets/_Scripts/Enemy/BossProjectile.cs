@@ -8,16 +8,17 @@ public class BossProjectile : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Invoke("DestroySelf", timer);
+        StartCoroutine(DestroySelf());
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        transform.Translate(Vector2.right * speed * Time.deltaTime);
+        transform.Translate(Vector2.up * speed * Time.deltaTime);
 	}
 
-    void DestroySelf()
+    IEnumerator DestroySelf()
     {
+        yield return new WaitForSeconds(timer);
         Destroy(this.gameObject);
     }
 }
