@@ -147,6 +147,7 @@ public class EnemyBoss : MonoBehaviour {
 
     void DeployBarrier()
     {
+        StartCoroutine(CoolDown(Random.Range(1.5f, 6.5f)));
         int randomNum;
 
         randomNum = Random.Range(0, barrierPoints.Length);
@@ -165,14 +166,15 @@ public class EnemyBoss : MonoBehaviour {
         if (barrierArray[randomNum] == null)
         {
             barrierArray[randomNum] = Instantiate(barrier, barrierPoints[randomNum].position, barrierPoints[randomNum].rotation) as GameObject;
-            barrierArray[randomNum].transform.parent = this.gameObject.transform;
+            //barrierArray[randomNum].transform.parent = this.gameObject.transform;
             barrierCount[randomNum] = 1;
-            StartCoroutine(CoolDown(Random.Range(1.5f, 6.5f)));
+            barrierArray[randomNum].GetComponent<BossBarrierScript>().SetBarrierNum(randomNum);
         }
     }
 
     public void MinusBarrier(int n)
     {
+        Debug.Log("REmoving Barrier " + n);
         barrierCount[n] = 0;
     }
 

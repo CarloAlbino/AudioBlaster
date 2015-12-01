@@ -4,23 +4,29 @@ using System.Collections;
 public class BossBarrierScript : MonoBehaviour {
 
     private EnemyBoss boss;
+    private int barrierNum;
 
 	// Use this for initialization
 	void Start () {
         boss = GetComponentInParent<EnemyBoss>();
 	}
 
-//FIX THIS MAKE SURE A NUMBER CAN BE PASSED SOMEHOW
-    public void BarrierDestroyed(int num)
+    public void SetBarrierNum(int n)
     {
-        boss.MinusBarrier(num);
+        Debug.Log("Set Barrier " + n);
+        barrierNum = n;
+    }
+
+    public void BarrierDestroyed()
+    {
+        boss.MinusBarrier(barrierNum);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Projectile"))
         {
-            BarrierDestroyed(0);
+            BarrierDestroyed();
             Destroy(this.gameObject);
         }
     }
