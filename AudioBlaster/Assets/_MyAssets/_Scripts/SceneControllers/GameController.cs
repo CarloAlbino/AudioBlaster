@@ -26,6 +26,12 @@ public class GameController : MonoBehaviour {
 
     private Player _player;
 
+    public float timeToBoss;
+
+    public GameObject bossPreFab;
+
+    public Transform bossSpawnPoint;
+
 	// Use this for initialization
 	void Start () {
         _player = FindObjectOfType<Player>();
@@ -34,6 +40,7 @@ public class GameController : MonoBehaviour {
         _wc.DestroyWSController();
         _wc = null;
         kills.text = "EXP:" + currentKillPoints;
+        StartCoroutine(CountdownToBoss());
 	}
 	
 	// Update is called once per frame
@@ -90,6 +97,17 @@ public class GameController : MonoBehaviour {
         {
             weaponButtonText[i].text = _player.GetWeaponName(i);
         }
+    }
+
+    private IEnumerator CountdownToBoss()
+    {
+        yield return new WaitForSeconds(timeToBoss);
+        SpawnBoss();
+    }
+
+    private void SpawnBoss()
+    {
+        Instantiate(bossPreFab, bossSpawnPoint.position, bossSpawnPoint.rotation);
     }
 
 }

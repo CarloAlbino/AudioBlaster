@@ -23,6 +23,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     protected float radiusOfTarget = 2.0f;
 
+    protected Player playerObject;
+
     protected Vector3 _player;
 
     protected Vector3 velocity;
@@ -31,7 +33,7 @@ public class Enemy : MonoBehaviour
     #region Monobehaviour
     // Use this for initialization
 	void Start () {
-        GetPlayerPosition();
+        playerObject = FindObjectOfType<Player>();
         StartCoroutine(RandomShooting());
 	}
 	
@@ -44,11 +46,12 @@ public class Enemy : MonoBehaviour
     #region AI
     protected void GetPlayerPosition()    // Not effecient for this particular enemy, should be called every frame when the player is moving.
     {
-        _player = FindObjectOfType<Player>().transform.position;
+        _player = playerObject.transform.position;
     }
 
     protected void GetVelocity()
     {
+        GetPlayerPosition();
         velocity = _player - transform.position;
     }
 
@@ -76,7 +79,7 @@ public class Enemy : MonoBehaviour
     public void NewTarget(Vector3 t)
     {
         _player = t;
-        Debug.Log("target" + _player);
+        //Debug.Log("target" + _player);
     }
     #endregion AI
 

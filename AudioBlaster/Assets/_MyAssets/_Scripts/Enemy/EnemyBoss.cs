@@ -52,6 +52,12 @@ public class EnemyBoss : MonoBehaviour {
 
     private bool canDecide = true;
 
+    public Transform bossSpot;
+
+    public float timeToTarget;
+
+    public float maxSpeed;
+
 	// Use this for initialization
 	void Start () {
         _player = FindObjectOfType<Player>();
@@ -61,12 +67,14 @@ public class EnemyBoss : MonoBehaviour {
         bossHealthObject = FindObjectOfType<BossHealthBar>();
         bossHealthObject.ShowHealthBar();
         bossHealth = bossHealthObject.GetHealthBar();
+        bossSpot = GameObject.Find("BossTarget").transform;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         RotateTowardsTarget();
         MakeDecision();
+        MoveToTarget();
 	}
 
     void MakeDecision()
@@ -192,6 +200,19 @@ public class EnemyBoss : MonoBehaviour {
             health = maxHealth;
 
         bossHealth.fillAmount = health / maxHealth;
+    }
+
+    private void MoveToTarget()
+    {
+        Vector3 velocity = bossSpot.position - transform.position;
+        velocity /= timeToTarget;
+
+        if (velocity.magnitude > maxSpeed)
+        {
+            velocity.Normalize();
+            velocity *= maxSpeed;
+        }
+        this.transform.Translate(velocity * maxSpeed * Time.deltaTime);
     }
 
 }

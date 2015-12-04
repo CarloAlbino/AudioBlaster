@@ -6,12 +6,14 @@ public class EnemyProjectile : Weapon {
 	// Use this for initialization
 	void Start () {
         _player = FindObjectOfType<Player>();
-        target = _player.transform.localPosition;
+        target = _player.transform.position;//.localPosition;
+        DestroyCount(selfDestructTime);
 	}
 	
 	// Update is called once per frame
 	void Update () {
         MoveToTarget();
+        //SeekTarget();
 	}
 
     void OnTriggerEnter2D(Collider2D other)

@@ -8,12 +8,12 @@ public class BossBarrierScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        boss = GetComponentInParent<EnemyBoss>();
+        boss = FindObjectOfType<EnemyBoss>();
 	}
 
     public void SetBarrierNum(int n)
     {
-        Debug.Log("Set Barrier " + n);
+        //Debug.Log("Set Barrier " + n);
         barrierNum = n;
     }
 
@@ -26,6 +26,7 @@ public class BossBarrierScript : MonoBehaviour {
     {
         if (other.CompareTag("Projectile"))
         {
+            other.GetComponent<Weapon>().DestroyProjectile();
             BarrierDestroyed();
             Destroy(this.gameObject);
         }

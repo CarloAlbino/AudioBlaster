@@ -7,7 +7,7 @@ public class EnemyUpgrade : Enemy {
     bool hasCalledDodged = false;
 	void Start () 
     {
-        GetPlayerPosition();
+        playerObject = FindObjectOfType<Player>();
         StartCoroutine(RandomShooting());
 	}
 
