@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private Vector3 mouseClickPosition;
 
-    private GameController _gc;
+    public GameController _gc;
 
     #endregion Variables
 
@@ -95,6 +95,7 @@ public class Player : MonoBehaviour
         {
             SwitchWeapon();
             FireWeapon();
+            Death();
         }
         /*if (Input.GetKeyDown(KeyCode.A))
         {
@@ -175,6 +176,16 @@ public class Player : MonoBehaviour
         }
         canFire[i] = true;
         coolDownClocks[i].fillAmount = 0;
+    }
+
+    private void Death()
+    {
+        if (playerHealth <= 0)
+        {
+            PlayerPrefs.SetInt("Score", _gc.score);
+            PlayerPrefs.SetString("Verdict", "You Lose!");
+            Application.LoadLevel(3);
+        }
     }
 
     #endregion Private Methods

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class EnemyCollisions : MonoBehaviour {
     private GameController _controller;
+    public int points;
 
     void Start()
     {
@@ -15,6 +16,7 @@ public class EnemyCollisions : MonoBehaviour {
         {
             _controller.numOfEnemies--;
             _controller.CountKill(1);
+            _controller.AddScore(points);
             Destroy(this.gameObject);
         }
         if(other.GetComponent<Guitar>())
@@ -22,12 +24,14 @@ public class EnemyCollisions : MonoBehaviour {
             other.GetComponent<Guitar>().DestroyProjectile();
             _controller.numOfEnemies--;
             _controller.CountKill(1);
+            _controller.AddScore(points);
             Destroy(this.gameObject);
         }
         if (other.GetComponent<Rap>())
         {
             _controller.numOfEnemies--;
             _controller.CountKill(1);
+            _controller.AddScore(points);
             Destroy(this.gameObject);
         }
         if (other.GetComponent<Violin>())
@@ -35,6 +39,7 @@ public class EnemyCollisions : MonoBehaviour {
             other.GetComponent<Violin>().DestroyProjectile();
             _controller.numOfEnemies--;
             _controller.CountKill(1);
+            _controller.AddScore(points);
             Destroy(this.gameObject);
         }
         if (other.GetComponent<Voice>())
@@ -42,18 +47,21 @@ public class EnemyCollisions : MonoBehaviour {
             other.GetComponent<Voice>().DestroyProjectile();
             _controller.numOfEnemies--;
             _controller.CountKill(1);
+            _controller.AddScore(points);
             Destroy(this.gameObject);
         }
         if (other.GetComponent<Tambourine>())
         {
             _controller.numOfEnemies--;
             _controller.CountKill(1);
+            _controller.AddScore(points);
             Destroy(this.gameObject);
         }
         if (other.GetComponent<Bass>())
         {
             _controller.numOfEnemies--;
             _controller.CountKill(1);
+            _controller.AddScore(points);
             Destroy(this.gameObject);
         }
         if (other.GetComponent<Triangle>())
@@ -61,6 +69,7 @@ public class EnemyCollisions : MonoBehaviour {
             other.GetComponent<Triangle>().DestroyProjectile();
             _controller.numOfEnemies--;
             _controller.CountKill(1);
+            _controller.AddScore(points);
             Destroy(this.gameObject);
         }
         if (other.GetComponent<BoomBox>())
@@ -68,6 +77,7 @@ public class EnemyCollisions : MonoBehaviour {
             other.GetComponent<BoomBox>().TakeHit();
             _controller.numOfEnemies--;
             _controller.CountKill(1);
+            _controller.AddScore(points);
             Destroy(this.gameObject);
         }
 

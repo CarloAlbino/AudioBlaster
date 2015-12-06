@@ -16,6 +16,16 @@ public class BossProjectile : MonoBehaviour {
         transform.Translate(Vector2.up * speed * Time.deltaTime);
 	}
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            //Call damage on other
+            other.gameObject.GetComponent<Player>().SetHealth(-10);
+            Destroy(this.gameObject);
+        }
+    }
+
     IEnumerator DestroySelf()
     {
         yield return new WaitForSeconds(timer);

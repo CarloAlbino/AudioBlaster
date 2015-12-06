@@ -44,7 +44,7 @@ public class UpgradeController : MonoBehaviour {
         if(_player.GetCurrentWeaponLevel(0) == 0){
             Weapon1Levels[0].text = "Upgraded";
             Weapon1Buttons[0].interactable = false;
-            Weapon1Levels[1].text = _player.GetWeapon1() + "Points to Upgrade";
+            Weapon1Levels[1].text = _player.GetWeapon1() + " Points to Upgrade";
             Weapon1Buttons[1].interactable = true;
             Weapon1Levels[2].text = "Locked";
             Weapon1Buttons[2].interactable = false;
@@ -53,7 +53,7 @@ public class UpgradeController : MonoBehaviour {
             Weapon1Buttons[0].interactable = false;
             Weapon1Levels[1].text = "Upgraded";
             Weapon1Buttons[1].interactable = false;
-            Weapon1Levels[2].text = _player.GetWeapon1() + "Points to Upgrade";
+            Weapon1Levels[2].text = _player.GetWeapon1() + " Points to Upgrade";
             Weapon1Buttons[2].interactable = true;
         }else if (_player.GetCurrentWeaponLevel(0) == 2){
             Weapon1Levels[0].text = "Upgraded";
@@ -71,7 +71,7 @@ public class UpgradeController : MonoBehaviour {
         {
             Weapon2Levels[0].text = "Upgraded";
             Weapon2Buttons[0].interactable = false;
-            Weapon2Levels[1].text = _player.GetWeapon2() + "Points to Upgrade";
+            Weapon2Levels[1].text = _player.GetWeapon2() + " Points to Upgrade";
             Weapon2Buttons[1].interactable = true;
             Weapon2Levels[2].text = "Locked";
             Weapon2Buttons[2].interactable = false;
@@ -82,7 +82,7 @@ public class UpgradeController : MonoBehaviour {
             Weapon2Buttons[0].interactable = false;
             Weapon2Levels[1].text = "Upgraded";
             Weapon2Buttons[1].interactable = false;
-            Weapon2Levels[2].text = _player.GetWeapon2() + "Points to Upgrade";
+            Weapon2Levels[2].text = _player.GetWeapon2() + " Points to Upgrade";
             Weapon2Buttons[2].interactable = true;
         }
         else if (_player.GetCurrentWeaponLevel(1) == 2)
@@ -102,7 +102,7 @@ public class UpgradeController : MonoBehaviour {
         {
             Weapon3Levels[0].text = "Upgraded";
             Weapon3Buttons[0].interactable = false;
-            Weapon3Levels[1].text = _player.GetWeapon3() + "Points to Upgrade";
+            Weapon3Levels[1].text = _player.GetWeapon3() + " Points to Upgrade";
             Weapon3Buttons[1].interactable = true;
             Weapon3Levels[2].text = "Locked";
             Weapon3Buttons[2].interactable = false;
@@ -113,7 +113,7 @@ public class UpgradeController : MonoBehaviour {
             Weapon3Buttons[0].interactable = false;
             Weapon3Levels[1].text = "Upgraded";
             Weapon3Buttons[1].interactable = false;
-            Weapon3Levels[2].text = _player.GetWeapon3() + "Points to Upgrade";
+            Weapon3Levels[2].text = _player.GetWeapon3() + " Points to Upgrade";
             Weapon3Buttons[2].interactable = true;
         }
         else if (_player.GetCurrentWeaponLevel(2) == 2)

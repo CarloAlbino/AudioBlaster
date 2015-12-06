@@ -18,15 +18,23 @@ public class GameController : MonoBehaviour {
 
     private int currentKillPoints = 0;
 
+    public Image expBar;
+
     public Text upgradePointsText;
 
     public Text kills;
+
+    public Text scoreText;
+
+    public int score = 0;
 
     private WeaponSelectController _wc;
 
     private Player _player;
 
-    public float timeToBoss;
+    public int timeToBoss = 90;
+
+    public Text time;
 
     public GameObject bossPreFab;
 
@@ -43,14 +51,16 @@ public class GameController : MonoBehaviour {
         SetSelectedWeapons(_wc.GetWeapon1(), _wc.GetWeapon2(), _wc.GetWeapon3());
         _wc.DestroyWSController();
         _wc = null;
-        kills.text = "EXP:" + currentKillPoints;
+        //kills.text = "EXP:" + currentKillPoints;
         StartCoroutine(CountdownToBoss());
+        scoreText.text = score.ToString();
+        time.text = "Time to boss:\n" + timeToBoss + " s";
 	}
 	
 	// Update is called once per frame
 	void Update () {
         ColourButtons();
-        upgradePointsText.text = "Upgrade Points:" + upgradePoints;
+        upgradePointsText.text = "Upgrade Points: " + upgradePoints;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (paused)
@@ -92,7 +102,8 @@ public class GameController : MonoBehaviour {
             currentKillPoints = currentKillPoints - killsForPoint;
             upgradePoints++;
         }
-        kills.text = "EXP:" + currentKillPoints;
+        //kills.text = "EXP:" + currentKillPoints;
+        expBar.fillAmount = (float)currentKillPoints / (float)killsForPoint;
     }
 
     public int GetUpgradePoints()
@@ -116,8 +127,13 @@ public class GameController : MonoBehaviour {
 
     private IEnumerator CountdownToBoss()
     {
-        yield return new WaitForSeconds(timeToBoss);
-        SpawnBoss();
+        yield return new WaitForSeconds(1);
+        timeToBoss--;
+        if (timeToBoss <= 0)
+            SpawnBoss();
+        else
+            StartCoroutine(CountdownToBoss());
+        time.text = "Time to boss:\n" + timeToBoss + " s";
     }
 
     private void SpawnBoss()
@@ -143,4 +159,17 @@ public class GameController : MonoBehaviour {
     {
         return paused;
     }
+
+    public void AddScore(int s)
+    {
+        score += s;
+        scoreText.text = score.ToString();
+    }
+
+    public void QuitGame()
+    {
+        Time.timeScale = 1;
+        Application.LoadLevel(0);
+    }
+
 }

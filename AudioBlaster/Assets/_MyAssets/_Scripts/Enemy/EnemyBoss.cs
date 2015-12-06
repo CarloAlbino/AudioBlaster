@@ -75,6 +75,7 @@ public class EnemyBoss : MonoBehaviour {
         RotateTowardsTarget();
         MakeDecision();
         MoveToTarget();
+        Death();
 	}
 
     void MakeDecision()
@@ -182,7 +183,7 @@ public class EnemyBoss : MonoBehaviour {
 
     public void MinusBarrier(int n)
     {
-        Debug.Log("REmoving Barrier " + n);
+        //Debug.Log("REmoving Barrier " + n);
         barrierCount[n] = 0;
     }
 
@@ -193,7 +194,7 @@ public class EnemyBoss : MonoBehaviour {
         if (health <= 0)
         {
             health = 0;
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
         }
 
         if (health > maxHealth)
@@ -213,6 +214,18 @@ public class EnemyBoss : MonoBehaviour {
             velocity *= maxSpeed;
         }
         this.transform.Translate(velocity * maxSpeed * Time.deltaTime);
+    }
+
+    private void Death()
+    {
+        if (health <= 0)
+        {
+            Destroy(this.gameObject);
+            _player._gc.score += 250;
+            PlayerPrefs.SetInt("Score", _player._gc.score);
+            PlayerPrefs.SetString("Verdict", "You Win!");
+            Application.LoadLevel(3);
+        }
     }
 
 }
