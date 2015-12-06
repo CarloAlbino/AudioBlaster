@@ -32,6 +32,10 @@ public class GameController : MonoBehaviour {
 
     public Transform bossSpawnPoint;
 
+    public GameObject upgradeMenu;
+
+    private bool paused = false;
+
 	// Use this for initialization
 	void Start () {
         _player = FindObjectOfType<Player>();
@@ -47,6 +51,17 @@ public class GameController : MonoBehaviour {
 	void Update () {
         ColourButtons();
         upgradePointsText.text = "Upgrade Points:" + upgradePoints;
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (paused)
+            {
+                CloseMenu();
+            }
+            else
+            {
+                PauseGame();
+            }
+        }
 	}
 
     private void ColourButtons()
@@ -110,4 +125,22 @@ public class GameController : MonoBehaviour {
         Instantiate(bossPreFab, bossSpawnPoint.position, bossSpawnPoint.rotation);
     }
 
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        upgradeMenu.SetActive(true);
+        paused = true;
+    }
+
+    public void CloseMenu()
+    {
+        Time.timeScale = 1;
+        upgradeMenu.SetActive(false);
+        paused = false;
+    }
+
+    public bool GetPaused()
+    {
+        return paused;
+    }
 }

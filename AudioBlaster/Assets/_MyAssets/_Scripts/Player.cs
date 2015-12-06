@@ -29,13 +29,13 @@ public class Player : MonoBehaviour
     /// Array for holding all the types of weapon projectiles.
     /// </summary>
     [SerializeField]
-    private GameObject[] weaponProjectiles;
+    public GameObject[] weaponProjectiles;
 
     /// <summary>
     /// The 3 selected weapons for the current try of the game.
     /// </summary>
     [SerializeField]
-    private int[] selectedWeapons = new int[3];
+    public int[] selectedWeapons = new int[3];
 
     /// <summary>
     /// The upgrade level for each of the selected weapons.
@@ -91,9 +91,12 @@ public class Player : MonoBehaviour
     }
 
 	void Update () {
-        SwitchWeapon();
-        FireWeapon();
-        if (Input.GetKeyDown(KeyCode.A))
+        if (!_gc.GetPaused())
+        {
+            SwitchWeapon();
+            FireWeapon();
+        }
+        /*if (Input.GetKeyDown(KeyCode.A))
         {
             UpgradeWeapon(0);
         }
@@ -104,7 +107,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D))
         {
             UpgradeWeapon(2);
-        }
+        }*/
 	}
 
     #endregion Monobehaviour
@@ -240,6 +243,11 @@ public class Player : MonoBehaviour
         return selectedWeaponLevel[currentlySelectedWeapon];
     }
 
+    public int GetCurrentWeaponLevel(int i)
+    {
+        return selectedWeaponLevel[i];
+    }
+
     public string GetWeaponName(int weaponNum)
     {
         return weaponProjectiles[selectedWeapons[weaponNum]].GetComponent<Weapon>().weaponName;
@@ -263,6 +271,25 @@ public class Player : MonoBehaviour
         if (playerHealth > maxHealth)
             playerHealth = maxHealth;
         healthBar.fillAmount += healthInc / maxHealth;
+    }
+
+
+    public int GetUpgradeCredits()
+    {
+        return _gc.GetUpgradePoints();
+    }
+
+    public int GetWeapon1()
+    {
+        return weaponProjectiles[selectedWeapons[0]].GetComponent<Weapon>().GetPointsNeeded();
+    }
+    public int GetWeapon2()
+    {
+        return weaponProjectiles[selectedWeapons[1]].GetComponent<Weapon>().GetPointsNeeded();
+    }
+    public int GetWeapon3()
+    {
+        return weaponProjectiles[selectedWeapons[2]].GetComponent<Weapon>().GetPointsNeeded();
     }
 
     #endregion Public Methods
