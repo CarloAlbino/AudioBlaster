@@ -17,7 +17,9 @@ public class BossRangeDetector : MonoBehaviour {
         if (other.CompareTag("Projectile"))
         {
             //Debug.Log("Projectile enter");
-            parent.DeployMinion(other.gameObject.transform);
+            int random = Random.Range(0, 10);
+            if(random < 4)
+                parent.DeployMinion(other.gameObject.transform);
         }
     }
 }

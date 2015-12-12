@@ -40,6 +40,7 @@ public class Enemy : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
         MoveToTarget();
+        RotateTowardsPlayer();
 	}
     #endregion Monobehaviour
 
@@ -80,6 +81,11 @@ public class Enemy : MonoBehaviour
     {
         _player = t;
         //Debug.Log("target" + _player);
+    }
+
+    public void RotateTowardsPlayer()
+    {
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, transform.position-_player );
     }
     #endregion AI
 

@@ -14,6 +14,7 @@ public class EnemyUpgrade : Enemy {
 	void Update () 
     {
         MoveToTarget();
+        RotateTowardsPlayer();
     }
 
     #region AI

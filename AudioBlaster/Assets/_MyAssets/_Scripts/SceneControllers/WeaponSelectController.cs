@@ -39,6 +39,9 @@ public class WeaponSelectController : MonoBehaviour {
         // Set play buttons to not clickable until weapons are picked.
         playButton.interactable = false;
         playButtonText.text = "Choose Weapons";
+        SetButtons(special, specialText, -1);
+        SetButtons(closeRange, closeRangeText, -1);
+        SetButtons(longRange, longRangeText, -1);
 	}
 
     #region Public Functions
@@ -122,7 +125,7 @@ public class WeaponSelectController : MonoBehaviour {
             }
             else
             {
-                _tArray[j].text = "";
+                _tArray[j].text = "Click to Select";
                 _bArray[j].image.color = Color.white;
             }
         }

@@ -91,6 +91,7 @@ public class GameController : MonoBehaviour {
 
     public int MaxEnemies()
     {
+        //Debug.Log(maxEnemies);
         return maxEnemies;
     }
 
@@ -139,6 +140,7 @@ public class GameController : MonoBehaviour {
     private void SpawnBoss()
     {
         Instantiate(bossPreFab, bossSpawnPoint.position, bossSpawnPoint.rotation);
+        maxEnemies = 1;
     }
 
     public void PauseGame()
