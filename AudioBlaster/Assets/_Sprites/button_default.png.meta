@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3529940d634156a45b99c2fc0363a358
-timeCreated: 1449889751
+timeCreated: 1449950408
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -63,7 +63,7 @@ TextureImporter:
         height: 26
       alignment: 0
       pivot: {x: .5, y: .5}
-      border: {x: 9, y: 11, z: 9, w: 11}
+      border: {x: 32, y: 11, z: 32, w: 11}
     - name: button_default_1
       rect:
         serializedVersion: 2
@@ -73,7 +73,7 @@ TextureImporter:
         height: 26
       alignment: 0
       pivot: {x: .5, y: .5}
-      border: {x: 10, y: 11, z: 9, w: 12}
+      border: {x: 33, y: 11, z: 32, w: 12}
     - name: button_default_2
       rect:
         serializedVersion: 2
@@ -83,7 +83,7 @@ TextureImporter:
         height: 28
       alignment: 0
       pivot: {x: .5, y: .5}
-      border: {x: 10, y: 12, z: 10, w: 12}
+      border: {x: 33, y: 12, z: 33, w: 12}
     - name: button_default_3
       rect:
         serializedVersion: 2
@@ -93,7 +93,7 @@ TextureImporter:
         height: 26
       alignment: 0
       pivot: {x: .5, y: .5}
-      border: {x: 9, y: 11, z: 9, w: 11}
+      border: {x: 32, y: 11, z: 32, w: 11}
   spritePackingTag: 
   userData: 
   assetBundleName: 

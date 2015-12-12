@@ -5,6 +5,8 @@ public class EnemyUpgrade : Enemy {
 
     bool hasDodged = false;
     bool hasCalledDodged = false;
+    Vector3 temp;
+    Vector3 projDir;
 	void Start () 
     {
         playerObject = FindObjectOfType<Player>();
@@ -13,7 +15,10 @@ public class EnemyUpgrade : Enemy {
 
 	void Update () 
     {
-        MoveToTarget();
+        if(!hasDodged)
+            MoveToTarget();
+        else
+            transform.Translate(projDir * maxSpeed * 2 * Time.deltaTime);
         RotateTowardsPlayer();
     }
 
@@ -22,9 +27,10 @@ public class EnemyUpgrade : Enemy {
     {
         if (!hasDodged)
         {
-            Vector3 projDir = GetProjectileDir(projectile);
-            Vector3 temp = transform.position.normalized;
-            if (projDir.x < 0)   //Projectile coming from right
+            projDir = GetProjectileDir(projectile);
+            temp = transform.position.normalized;
+            int rand = Random.Range(0, 1);
+            if (rand < 1)//projDir.x < 0)   //Projectile coming from right
             {
                 // Move Left
                 temp.x *= -1;
@@ -38,8 +44,9 @@ public class EnemyUpgrade : Enemy {
                // float p = temp.x * 0.05f;
                // temp.x += p;
             }
-            temp *= 0.5f;
-            transform.position += temp;
+            //temp *= 0.5f;
+            //transform.position += temp;
+            //transform.Translate(temp * maxSpeed * Time.deltaTime);
             if (!hasCalledDodged)
             {
                 StartCoroutine(DodgeTimer());
@@ -50,16 +57,17 @@ public class EnemyUpgrade : Enemy {
 
     protected IEnumerator DodgeTimer()
     {
-        yield return new WaitForSeconds(0.5f);
+        //yield return new WaitForSeconds(0.5f);
         hasDodged = true;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
         hasDodged = false;
         hasCalledDodged = false;
     }
 
     protected Vector3 GetProjectileDir(GameObject projectile)
     {
-        return projectile.transform.position - transform.position;
+        //return projectile.transform.position - transform.position;
+        return transform.position - projectile.transform.position;
     }
     #endregion AI
 }
